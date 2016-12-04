@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "../src/Problem3.cpp"
+#include <string.h>
 
 using namespace System;
 using namespace System::Text;
@@ -53,12 +54,57 @@ namespace spec
 		//
 #pragma endregion 
 
-		[TestMethod]
-		void Sample_Problem3()
+
+		struct node *createnode(int num)
 		{
-			//
-			// TODO: Add test logic here
-			//
+			struct node *new_node = (struct node*)malloc(sizeof(struct node));
+			new_node->num = num;
+			new_node->prev = NULL;
+			new_node->next = NULL;
+			return new_node;
+		}
+
+		struct node* strtoDLL(char *str)
+		{
+			int len = strlen(str);
+			if (len == 0)
+				return NULL;
+
+			struct node *head = createnode(str[len - 1] - '0');
+			for (int i = len - 2; i >= 0; i--)
+			{
+				struct node *temp = createnode(str[i] - '0');
+				head->prev = temp;
+				temp->next = head;
+				head = temp;
+			}
+
+			return head;
+		}
+
+
+		[TestMethod, Timeout(1000)]
+		void Sample1_Problem3()
+		{
+			struct node *passkey = strtoDLL("321");
+			int actualAns = doorstoCross(passkey);
+			Assert::AreEqual(1, actualAns, L"Failed  ", 1, 2);
+		};
+
+		[TestMethod, Timeout(1000)]
+		void Sample2_Problem3()
+		{
+			struct node *passkey = strtoDLL("758");
+			int actualAns = doorstoCross(passkey);
+			Assert::AreEqual(4, actualAns, L"Failed  ", 1, 2);
+		};
+
+		[TestMethod, Timeout(1000)]
+		void Sample3_Problem3()
+		{
+			struct node *passkey = strtoDLL("");
+			int actualAns = doorstoCross(passkey);
+			Assert::AreEqual(NULL, actualAns, L"Failed  ", 1, 2);
 		};
 	};
 }

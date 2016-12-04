@@ -53,12 +53,26 @@ namespace spec
 		//
 #pragma endregion 
 
-		[TestMethod]
-		void Sample_Problem1()
+		[TestMethod, Timeout(1000)]
+		void Sample1_Problem1()
 		{
-			//
-			// TODO: Add test logic here
-			//
+			int actualAns = isValidEmail("Manoj iammanoj@gmail.com");
+			Assert::AreEqual(2, actualAns, L"Failed for Invalid case P1", 1, 2);
 		};
+
+		[TestMethod, Timeout(1000)]
+		void Sample2_Problem1()
+		{
+			int actualAns = isValidEmail("abc abc.com");
+			Assert::AreEqual(0, actualAns, L"Failed for Invalid case P1", 1, 2);
+		};
+
+		[TestMethod, Timeout(1000)]
+		void Sample3_Problem1()
+		{
+			int actualAns = isValidEmail("abcd abc@d.com");
+			Assert::AreEqual(1, actualAns, L"Failed for Invalid case P1", 1, 2);
+		};
+
 	};
 }
